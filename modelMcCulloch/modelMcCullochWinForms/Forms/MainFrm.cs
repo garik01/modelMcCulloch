@@ -27,7 +27,7 @@ namespace modelMcCullochWinForms
         private void buildTable()
         {
             dataGridView1.Columns.Add("exp", "Опыт");
-            addX(3);
+            addX(count = 2);
             dataGridView1.Columns.Add("u", "U");
             dataGridView1.Columns.Add("y", "Y");
             dataGridView1.Columns.Add("d", "D");
@@ -37,7 +37,7 @@ namespace modelMcCullochWinForms
         private void setWidthAllColumns(int widthFirstColumn, int widthAllColumns)
         {
             dataGridView1.Columns[0].Width = widthFirstColumn;
-            int columns = count + 6;
+            int columns = count * 2 + 3;
             while (columns > 0)
             {
                 dataGridView1.Columns[columns--].Width = widthAllColumns;
@@ -46,11 +46,11 @@ namespace modelMcCullochWinForms
 
         private void addX(int size)
         {
-            do
+            for (int i = 1; i <= size; i++)
             {
-                dataGridView1.Columns.Add("x"+ ++count, "X" + count);
-                dataGridView1.Columns.Add("w" + count, "W" + count);
-            } while (--size > 0);
+                dataGridView1.Columns.Add("x" + i, "X" + i);
+                dataGridView1.Columns.Add("w" + i, "W" + i);
+            }
         }
 
         private void dataGridView1_UserAddedRow(object sender, DataGridViewRowEventArgs e)
@@ -104,6 +104,22 @@ namespace modelMcCullochWinForms
                     y = 1;
                 }
                 dataGridView1.Rows[i].Cells[2 + count * 2].Value = y;
+            }
+
+            coorrows();
+        }
+
+        private void coorrows()
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[2 + count * 2].Value.ToString() != dataGridView1.Rows[i].Cells[3 + count * 2].Value.ToString())
+                {
+                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                } else
+                {
+                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                }
             }
         }
     }
