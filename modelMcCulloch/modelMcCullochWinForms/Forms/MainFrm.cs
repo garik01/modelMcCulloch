@@ -21,13 +21,13 @@ namespace modelMcCullochWinForms
 
         private void MainFrm_Load(object sender, EventArgs e)
         {
-            buildTable();
+            //buildTable();
         }
 
-        private void buildTable()
+        private void buildTable(int count)
         {
             dataGridView1.Columns.Add("exp", "Опыт");
-            addX(count = 2);
+            addX(this.count = count);
             dataGridView1.Columns.Add("u", "U");
             dataGridView1.Columns.Add("y", "Y");
             dataGridView1.Columns.Add("d", "D");
@@ -90,28 +90,7 @@ namespace modelMcCullochWinForms
                 Convert.ToDouble(dataGridView1.Rows[i].Cells[2 * j + 1].Value.ToString());
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            getsU();
-            double t =  Convert.ToDouble(textBox1.Text);
-            for (int i = 0; i < rows; i++)
-            {
-                double u = Convert.ToDouble(dataGridView1.Rows[i].Cells[1 + count * 2].Value.ToString());
-                double y = 0;
-                if (u < t)
-                {
-                    y = 0;
-                } else
-                {
-                    y = 1;
-                }
-                dataGridView1.Rows[i].Cells[2 + count * 2].Value = y;
-            }
-
-            coorrows();
-        }
-
-        private void coorrows()
+        private void colorRows()
         {
             for (int i = 0; i < rows; i++)
             {
@@ -124,5 +103,53 @@ namespace modelMcCullochWinForms
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int count = 0;
+            int.TryParse(textBox2.Text, out count);
+            if (count > 0)
+            {
+                dataGridView1.Columns.Clear();
+                dataGridView1.Rows.Clear();
+                this.count = rows = 0;
+                buildTable(count);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            bool work = true;
+            for (int i = 0; i < rows; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[3 + count * 2].Value == null)
+                {
+                    work = false;
+                    break;
+                }
+            }
+
+            if (work && textBox1.Text != "")
+            {
+                getsU();
+                double t = Convert.ToDouble(textBox1.Text);
+                for (int i = 0; i < rows; i++)
+                {
+                    double u = Convert.ToDouble(dataGridView1.Rows[i].Cells[1 + count * 2].Value.ToString());
+                    double y = 0;
+                    if (u < t)
+                    {
+                        y = 0;
+                    }
+                    else
+                    {
+                        y = 1;
+                    }
+                    dataGridView1.Rows[i].Cells[2 + count * 2].Value = y;
+                }
+                colorRows();
+            }
+        }
+
     }
 }
