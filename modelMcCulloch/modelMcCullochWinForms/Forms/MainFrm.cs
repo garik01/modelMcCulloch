@@ -70,7 +70,7 @@ namespace modelMcCullochWinForms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void getsU()
         {
             for (int i = 0; i < rows; i++)
             {
@@ -81,6 +81,7 @@ namespace modelMcCullochWinForms
                 }
                 dataGridView1.Rows[i].Cells[1 + count * 2].Value = u;
             }
+
         }
 
         private double getU(int i, int j)
@@ -91,6 +92,7 @@ namespace modelMcCullochWinForms
 
         private void button2_Click(object sender, EventArgs e)
         {
+            getsU();
             double t =  Convert.ToDouble(textBox1.Text);
             for (int i = 0; i < rows; i++)
             {
