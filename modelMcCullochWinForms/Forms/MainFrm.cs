@@ -12,8 +12,9 @@ namespace modelMcCullochWinForms
 {
     public partial class MainFrm : Form
     {
-        int count = 0;
-        int rows = 0;
+        private int count = 0;
+        private int rows = 0;
+        private double t = 0;
         public MainFrm()
         {
             InitializeComponent();
@@ -104,15 +105,20 @@ namespace modelMcCullochWinForms
             }
         }
 
+        private void clearData()
+        {
+            count = rows = 0;
+            dataGridView1.Columns.Clear();
+            dataGridView1.Rows.Clear();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             int count = 0;
             int.TryParse(textBox2.Text, out count);
             if (count > 0)
             {
-                dataGridView1.Columns.Clear();
-                dataGridView1.Rows.Clear();
-                this.count = rows = 0;
+                clearData();
                 buildTable(count);
             }
         }
@@ -151,5 +157,9 @@ namespace modelMcCullochWinForms
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            clearData();
+        }
     }
 }
